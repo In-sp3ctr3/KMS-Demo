@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { Article } from '../types/article';
+import { useNavigate } from 'react-router-dom';
+import { Article } from '../../../src/types/article';
 
 const ArticleForm = () => {
   const [article, setArticle] = useState<Article>({
     title: '',
     content: '',
   });
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await axios.post('http://localhost:3000/articles', article);
-    history.push('/');
+    await axios.post<Article>('http://localhost:3000/articles', article);
+    navigate('/');
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setArticle((prevState) => ({
       ...prevState,

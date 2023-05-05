@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Article } from '../types/article';
+import { Article } from '../../../src/types/article';
 
 const ArticleList = () => {
   const [articles, setArticles] = useState<Article[]>([]);

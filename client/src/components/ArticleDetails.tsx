@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Article } from '../types/article';
+import { Article } from '../../../src/types/article';
 
 const ArticleDetails = () => {
   const { id } = useParams<{ id: string }>();
