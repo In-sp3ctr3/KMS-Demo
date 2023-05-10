@@ -1,6 +1,6 @@
 export interface Article {
     id?: number;
     title: string;
-    content: string;
+    body: string;
     created_at?: Date;
   }

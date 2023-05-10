@@ -4,4 +4,4 @@ metadata:
   name: db-credentials
 type: Opaque
 stringData:
-  DATABASE_URL: postgresql://<username>:<password>@<host>:<port>/<database-name
+  DATABASE_URL: postgres://jadan:RootUserPassword@194.195.214.223:5432/kmsdb

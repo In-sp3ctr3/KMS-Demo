@@ -6,7 +6,7 @@ import { Article } from '../../../src/types/article';
 const ArticleForm = () => {
   const [article, setArticle] = useState<Article>({
     title: '',
-    content: '',
+    body: '',
   });
   const navigate = useNavigate();
 
@@ -33,8 +33,8 @@ const ArticleForm = () => {
           <input type="text" name="title" value={article.title} onChange={handleChange} />
         </div>
         <div>
-          <label htmlFor="content">Content</label>
-          <textarea name="content" value={article.content} onChange={handleChange} />
+          <label htmlFor="body">Content</label>
+          <textarea name="body" value={article.body} onChange={handleChange} />
         </div>
         <button type="submit">Save</button>
       </form>

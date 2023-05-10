@@ -22,7 +22,7 @@ const ArticleDetails = () => {
   return (
     <div>
       <h1>{article.title}</h1>
-      <p>{article.content}</p>
+      <p>{article.body}</p>
       <p>Created at: {new Date(article.created_at!).toLocaleString()}</p> </div> ); };
 
 export default ArticleDetails;

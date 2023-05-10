@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import ArticleList from './components/ArticleList';
-import ArticleForm from './components/ArticleForm';
-import ArticleDetails from './components/ArticleDetails';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import ArticleList from './components/ArticleList.tsx';
+import ArticleForm from './components/ArticleForm.tsx';
+import ArticleDetails from './components/ArticleDetails.tsx';
 
 const App = () => {
   return (
@@ -19,17 +19,11 @@ const App = () => {
           </ul>
         </nav>
 
-        <Switch>
-          <Route path="/" exact>
-            <ArticleList />
-          </Route>
-          <Route path="/articles/new">
-            <ArticleForm />
-          </Route>
-          <Route path="/articles/:id">
-            <ArticleDetails />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<ArticleList />} />
+          <Route path="/articles/new" element={<ArticleForm />} />
+          <Route path="/articles/:id" element={<ArticleDetails />} />
+        </Routes>
       </div>
     </Router>
   );
