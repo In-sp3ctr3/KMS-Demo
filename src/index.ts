@@ -1,33 +1,55 @@
-import express from 'express';
-import { json } from 'body-parser';
-import { Pool } from 'pg';
-const cors = require('cors');
-import { getArticles, createArticle, getArticleById } from './controllers/articles';
-import dotenv from 'dotenv';
-dotenv.config();
+import express from "express";
+import router from "./controllers";
+import env from "./config/env";
+import { HttpError } from "./errors/HttpError";
+import { Logger } from "./services/Logger";
+import { DatabaseService } from "./services/DatabaseService";
+import { userGateway } from "./gateways";
+import { ArticleUseCases } from "./usecases/article";
+import { AuthenticationUseCases } from "./usecases/authentication";
+import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  max: 20, // maximum number of clients in the pool
-  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-});
+dotenv.config();
 
 const app = express();
 
-app.use(json());
+app.use(helmet());
 
-app.use(cors({ 
-  origin: 'http://localhost:8000', 
-  credentials: true,
-  optionsSuccessStatus: 200,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'] 
-}));
+app.use(morgan("dev"));
 
-app.get('/articles', getArticles);
-app.get('/articles/:id', getArticleById);
-app.post('/articles', createArticle);
+app.use(cors());
 
-app.listen(3000, () => {
-  console.log('Server is listening on port 3000!');
+app.use(express.json());
+
+app.use(router);
+
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (err instanceof HttpError) {
+    res.status(err.status).send(err.message);
+  } else {
+    const logger = new Logger();
+    logger.error("Unhandled error", err);
+    res.status(500).send("Internal server error");
+  }
 });
+
+const databaseService = new DatabaseService();
+const articleUseCases = new ArticleUseCases();
+const authenticationUseCases = new AuthenticationUseCases(userGateway);
+
+app.locals.db = {
+  dropDatabase: databaseService.dropDatabase.bind(databaseService),
+  migrateDatabase: databaseService.migrateDatabase.bind(databaseService),
+};
+
+app.locals.articleUseCases = articleUseCases;
+app.locals.authenticationUseCases = authenticationUseCases;
+
+app.listen(env.PORT, () => {
+  console.log(`Server listening on port ${env.PORT}`);
+});
+
+export default app;
