@@ -1,30 +1,38 @@
 import React from 'react';
-import '../resources/styles/Header.css';
+import styles from '../resources/styles/Header.module.css';
 import logo from '../resources/img/logo.svg.png';
 import main from '../resources/img/splash.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+  const history = useNavigate();
+
+  function handleClick() {
+    history('/dashboard');
+  }
+
   return (
-    <header>
-      <nav className="header-nav container flex-container">
-      <img src={logo} alt="Digicel logo" className="logo" />
-        {/* <h1 className="logo"><a className="logo-link" href="https://">Digicel</a></h1> */}
-        <ul className="header-menu flex-container">
-          {/* <li><a className="header-menu-link" href="https://">Books</a></li>
-          <li><a className="header-menu-link" href="https://">Courses</a></li>
-          <li><a className="header-menu-link" href="https://">Webinars</a></li>
-          <li><a className="header-menu-link" href="https://">Blog</a></li> */}
+    <header className={`${styles['header']}`}>
+      <nav className={`${styles['header-nav']} ${styles.container} ${styles['flex-container']}`}>
+        <img src={logo} alt="Digicel logo" className={`${styles.logo} ${styles['img']}`} />
+        {/* <h1 className={styles.logo}><a className={styles['logo-link']} href="https://">Digicel</a></h1> */}
+        <ul className={`${styles['header-menu']} ${styles['flex-container']}`}>
+          {/* <li><a className={styles['header-menu-link']} href="https://">Books</a></li>
+          <li><a className={styles['header-menu-link']} href="https://">Courses</a></li>
+          <li><a className={styles['header-menu-link']} href="https://">Webinars</a></li>
+          <li><a className={styles['header-menu-link']} href="https://">Blog</a></li> */}
         </ul>
-        <button className="ghost-button">Log In</button>
+        <button className={`${styles['ghost-button']} ${styles['button']}`} onClick={handleClick}>Log In</button>
       </nav>
-      <section className="header-content">
-        <figure className="header-img">
-          <img src={main} alt="dfdfdfd"></img>
+      <section className={styles['header-content']}>
+        <figure className={styles['header-img']}>
+          <img src={main} alt="dfdfdfd" className={`${styles['img']}`}></img>
         </figure>
-        <div className="header-description container">
-          <h2 className="header-title">Discover. <h2 className="learn">Learn.</h2> Share.</h2>
+        <div className={`${styles['header-description']} ${styles.container}`}>
+          <h2 className={styles['header-title']}>Discover. <h2 className={styles.learn}>Learn.</h2> Share.</h2>
           <p>Effortlessly navigate through company-wide information with our centralized knowledge management solution - your one-stop-shop for internal knowledge.</p>
-          <button className="type-button">Start Learning</button>
+          <button className={`${styles['type-button']} ${styles['button']}`}>Start Learning</button>
         </div>    
       </section>
     </header>

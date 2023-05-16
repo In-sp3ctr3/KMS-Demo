@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Article } from '../../../src/types/article';
+import { Article } from '../../../src/entities/article/Article';
 
 const ArticleDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,7 +22,7 @@ const ArticleDetails = () => {
   return (
     <div>
       <h1>{article.title}</h1>
-      <p>{article.body}</p>
-      <p>Created at: {new Date(article.created_at!).toLocaleString()}</p> </div> ); };
+      <p>{article.content}</p>
+      <p>Created at: {new Date(article.createdAt!).toLocaleString()}</p> </div> ); };
 
 export default ArticleDetails;

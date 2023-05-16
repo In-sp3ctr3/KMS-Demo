@@ -9,7 +9,6 @@
 }
 *{
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
   line-height: 1;
   list-style: none;
   margin: 0;
@@ -17,11 +16,7 @@
 }
 
 /* GLOBAL STYLES */
-a{
-  text-decoration: none;
-  transition: .25s;
-}
-button{
+.button{
   background: transparent;
   border: none;
   border-radius: 2em;
@@ -33,13 +28,14 @@ button{
   text-transform: uppercase;
   transition: .25s;
 }
-button:hover{
+.button:hover{
   color: var(--gray-color);
 }
-header{
+.header{
   min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
 }
-img{
+.img{
   height: 100%;
   object-fit: cover;
   object-position: 50% 80%;
@@ -142,7 +138,7 @@ p{
 
 @media only screen and (min-width: 768px){ 
   /* GLOBAL STYLES */
-  header{
+  .header{
     overflow: hidden;
   } 
   img{

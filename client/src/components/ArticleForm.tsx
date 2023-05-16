@@ -1,12 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Article } from '../../../src/types/article';
+import { Article } from '../../../src/entities';
 
 const ArticleForm = () => {
   const [article, setArticle] = useState<Article>({
     title: '',
-    body: '',
+    content: '',
   });
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const ArticleForm = () => {
         </div>
         <div>
           <label htmlFor="body">Content</label>
-          <textarea name="body" value={article.body} onChange={handleChange} />
+          <textarea name="body" value={article.content} onChange={handleChange} />
         </div>
         <button type="submit">Save</button>
       </form>
